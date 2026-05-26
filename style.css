@@ -1011,10 +1011,193 @@ label {
 #tblNilai { min-width: 1180px; }
 
 @media (max-width: 768px) {
-    #tblMahasiswa { min-width: 860px; }
-    #tblMatakuliah { min-width: 760px; }
-    #tblNilai { min-width: 980px; }
+    #tblMahasiswa,
+    #tblMatakuliah,
+    #tblNilai {
+        min-width: 0;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+    }
+
+    #tblMahasiswa thead,
+    #tblMatakuliah thead,
+    #tblNilai thead {
+        display: none;
+    }
+
+    #tblMahasiswa,
+    #tblMahasiswa tbody,
+    #tblMahasiswa tr,
+    #tblMahasiswa td,
+    #tblMatakuliah,
+    #tblMatakuliah tbody,
+    #tblMatakuliah tr,
+    #tblMatakuliah td,
+    #tblNilai,
+    #tblNilai tbody,
+    #tblNilai tr,
+    #tblNilai td {
+        display: block;
+        width: 100%;
+    }
+
+    #tblMahasiswa tbody,
+    #tblMatakuliah tbody,
+    #tblNilai tbody {
+        padding: 12px;
+    }
+
+    #tblMahasiswa tbody tr,
+    #tblMatakuliah tbody tr,
+    #tblNilai tbody tr {
+        background: #fff;
+        border: 1px solid #eee7dd;
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(29,43,78,.06);
+        overflow: hidden;
+    }
+
+    #tblMahasiswa tbody tr:hover,
+    #tblMatakuliah tbody tr:hover,
+    #tblNilai tbody tr:hover {
+        background: #fff;
+    }
+
+    #tblMahasiswa tbody td,
+    #tblMatakuliah tbody td,
+    #tblNilai tbody td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 44px;
+        padding: 11px 14px;
+        border-bottom: 1px solid #f3efe9;
+        text-align: right;
+    }
+
+    #tblMahasiswa tbody td:last-child,
+    #tblMatakuliah tbody td:last-child,
+    #tblNilai tbody td:last-child {
+        border-bottom: 0;
+    }
+
+    #tblMahasiswa tbody td::before,
+    #tblMatakuliah tbody td::before,
+    #tblNilai tbody td::before {
+        content: '';
+        flex: 0 0 104px;
+        max-width: 42%;
+        color: #8a8177;
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: .06em;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    #tblMahasiswa .empty-row,
+    #tblMatakuliah .empty-row,
+    #tblNilai .empty-row {
+        box-shadow: none;
+    }
+
+    #tblMahasiswa .empty-row td,
+    #tblMatakuliah .empty-row td,
+    #tblNilai .empty-row td {
+        display: block;
+        padding: 28px 16px;
+        text-align: center;
+    }
+
+    #tblMahasiswa .empty-row td::before,
+    #tblMatakuliah .empty-row td::before,
+    #tblNilai .empty-row td::before {
+        display: none;
+    }
+
+    #tblMahasiswa td:nth-child(1)::before { content: 'No'; }
+    #tblMahasiswa td:nth-child(2)::before { content: 'Profil'; }
+    #tblMahasiswa td:nth-child(3)::before { content: 'NPM'; }
+    #tblMahasiswa td:nth-child(4)::before { content: 'Nama'; }
+    #tblMahasiswa td:nth-child(5)::before { content: 'Prodi'; }
+    #tblMahasiswa td:nth-child(6)::before { content: 'Alamat'; }
+    #tblMahasiswa td:nth-child(7)::before { content: 'Nilai'; }
+    #tblMahasiswa td:nth-child(8)::before { content: 'Aksi'; }
+
+    #tblMatakuliah td:nth-child(1)::before { content: 'No'; }
+    #tblMatakuliah td:nth-child(2)::before { content: 'Kode'; }
+    #tblMatakuliah td:nth-child(3)::before { content: 'Mata Kuliah'; }
+    #tblMatakuliah td:nth-child(4)::before { content: 'Prodi'; }
+    #tblMatakuliah td:nth-child(5)::before { content: 'SKS'; }
+    #tblMatakuliah td:nth-child(6)::before { content: 'Nilai'; }
+    #tblMatakuliah td:nth-child(7)::before { content: 'Aksi'; }
+
+    #tblNilai td:nth-child(1)::before { content: 'No'; }
+    #tblNilai td:nth-child(2)::before { content: 'Mahasiswa'; }
+    #tblNilai td:nth-child(3)::before { content: 'Mata Kuliah'; }
+    #tblNilai td:nth-child(4)::before { content: 'Prodi'; }
+    #tblNilai td:nth-child(5)::before { content: 'Semester'; }
+    #tblNilai td:nth-child(6)::before { content: 'SKS'; }
+    #tblNilai td:nth-child(7)::before { content: 'Tugas'; }
+    #tblNilai td:nth-child(8)::before { content: 'UTS'; }
+    #tblNilai td:nth-child(9)::before { content: 'UAS'; }
+    #tblNilai td:nth-child(10)::before { content: 'Rata-rata'; }
+    #tblNilai td:nth-child(11)::before { content: 'Huruf'; }
+    #tblNilai td:nth-child(12)::before { content: 'Aksi'; }
+
+    #tblMahasiswa .action-group,
+    #tblMatakuliah .action-group,
+    #tblNilai .action-group {
+        justify-content: flex-end !important;
+        width: auto;
+    }
+
+    #tblMahasiswa .student-avatar {
+        margin-left: auto;
+    }
+
     .section-grid .data-table { min-width: 620px; }
+}
+
+@media (max-width: 480px) {
+    #tblMahasiswa tbody,
+    #tblMatakuliah tbody,
+    #tblNilai tbody {
+        padding: 10px;
+    }
+
+    #tblMahasiswa tbody td,
+    #tblMatakuliah tbody td,
+    #tblNilai tbody td {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+        text-align: left;
+    }
+
+    #tblMahasiswa tbody td::before,
+    #tblMatakuliah tbody td::before,
+    #tblNilai tbody td::before {
+        flex-basis: auto;
+        max-width: none;
+    }
+
+    #tblMahasiswa .student-avatar {
+        margin-left: 0;
+    }
+
+    #tblMahasiswa .action-group,
+    #tblMatakuliah .action-group,
+    #tblNilai .action-group {
+        justify-content: flex-start !important;
+    }
+
+    .table-card.mt-6 > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+        padding: 14px !important;
+    }
 }
 
 /* Page motion */
