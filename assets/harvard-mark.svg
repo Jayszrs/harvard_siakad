@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Harvard crest">
+  <defs>
+    <linearGradient id="crimson" x1="20" y1="6" x2="76" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c43a4b"/>
+      <stop offset="0.52" stop-color="#a51c30"/>
+      <stop offset="1" stop-color="#6e1020"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#crimson)" d="M48 4 82 16v28c0 22.7-13.7 39.6-34 48C27.7 83.6 14 66.7 14 44V16L48 4Z"/>
+  <path fill="none" stroke="#e5c75d" stroke-width="3" d="M48 9 77 19v25c0 19.6-11.3 34.2-29 41.8C30.3 78.2 19 63.6 19 44V19L48 9Z"/>
+  <g fill="#f8f0d5" stroke="#e5c75d" stroke-width="1.4">
+    <path d="M25 31h20v23H25z"/>
+    <path d="M51 31h20v23H51z"/>
+    <path d="M34 58h28v15H34z"/>
+  </g>
+  <g fill="#761121" font-family="Georgia, serif" font-weight="700" text-anchor="middle">
+    <text x="35" y="45" font-size="9">VE</text>
+    <text x="61" y="45" font-size="9">RI</text>
+    <text x="48" y="69" font-size="8">TAS</text>
+  </g>
+</svg>
