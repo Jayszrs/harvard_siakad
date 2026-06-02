@@ -9,6 +9,41 @@ $errors = [];
 $old = [];
 $academicPrograms = academicPrograms();
 
+const STUDENT_NPM_PREFIX = '230111111';
+const STUDENT_NPM_SEQUENCE_WIDTH = 4;
+const STUDENT_NPM_START_SEQUENCE = 40;
+
+function nextStudentNpm(PDO $db): string {
+    $prefix = STUDENT_NPM_PREFIX;
+    $width = STUDENT_NPM_SEQUENCE_WIDTH;
+
+    $stmt = $db->prepare(
+        "SELECT NPM
+         FROM mahasiswa
+         WHERE NPM LIKE ?
+         ORDER BY NPM"
+    );
+    $stmt->execute([$prefix . '%']);
+
+    $usedSequences = [];
+    foreach ($stmt->fetchAll(PDO::FETCH_COLUMN) as $existingNpm) {
+        if (!preg_match('/^' . preg_quote($prefix, '/') . '([0-9]{' . $width . '})$/', $existingNpm, $matches)) {
+            continue;
+        }
+
+        $usedSequences[(int)$matches[1]] = true;
+    }
+
+    $maxSequence = (10 ** $width) - 1;
+    for ($sequence = STUDENT_NPM_START_SEQUENCE; $sequence <= $maxSequence; $sequence++) {
+        if (!isset($usedSequences[$sequence])) {
+            return $prefix . str_pad((string)$sequence, $width, '0', STR_PAD_LEFT);
+        }
+    }
+
+    return $prefix . str_pad((string)($maxSequence + 1), $width, '0', STR_PAD_LEFT);
+}
+
 if ($action === 'delete' && isset($_GET['npm'])) {
     $npm = $_GET['npm'];
 
@@ -53,6 +88,10 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $prodi = trim($_POST['PRODI'] ?? '');
     $oldNpm = trim($_POST['old_npm'] ?? '');
     $currentPhoto = trim($_POST['current_photo'] ?? '');
+
+    if ($action === 'add') {
+        $npm = nextStudentNpm($db);
+    }
 
     $old = [
         'NPM' => $npm,
@@ -186,6 +225,10 @@ if ($action === 'edit' && isset($_GET['npm']) && empty($old)) {
     $old = $editRow;
 }
 
+if ($action === 'add' && empty($old)) {
+    $old['NPM'] = nextStudentNpm($db);
+}
+
 $list = $db->query(
     "SELECT m.*,
         (SELECT COUNT(*) FROM nilai n WHERE n.NPM = m.NPM) AS jml_nilai
@@ -273,9 +316,10 @@ require 'header.php';
                         <input type="text" id="NPM" name="NPM" maxlength="30"
                                class="form-control <?= isset($errors['NPM']) ? 'error' : '' ?>"
                                value="<?= clean($old['NPM'] ?? '') ?>"
-                               placeholder="Contoh: 20230001000001">
+                               placeholder="Contoh: 2301111110040"
+                               <?= $action === 'add' ? 'readonly' : '' ?>>
                         <span class="form-hint <?= isset($errors['NPM']) ? 'error' : '' ?>">
-                            <?= $errors['NPM'] ?? 'Maksimal 30 karakter' ?>
+                            <?= $errors['NPM'] ?? ($action === 'add' ? 'NPM otomatis memakai nomor kosong terkecil' : 'Maksimal 30 karakter') ?>
                         </span>
                     </div>
 
